@@ -1,0 +1,259 @@
+/* ==========================================================
+   1. VARIABLES
+   ========================================================== */
+:root {
+  --bg: #0d0d0f;
+  --surface: #17171b;
+  --line: #2a2a31;
+  --text: #f3f3f5;
+  --muted: #a4a4ae;
+  --red: #e5202f;
+  --red-dark: #bd1421;
+  --radius: 14px;
+  --header-h: 64px;
+  --font: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ==========================================================
+   2. RESET & BASE (mobile-first)
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, p { margin: 0; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+.container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+/* ==========================================================
+   3. TYPOGRAPHY & SECTIONS
+   ========================================================== */
+h1 { font-size: clamp(2rem, 8.5vw, 3.6rem); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 6vw, 2.3rem); line-height: 1.2; font-weight: 800; margin-bottom: 16px; }
+h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+p + p { margin-top: 14px; }
+
+.section { padding: 64px 0; }
+.section-alt { background: var(--surface); }
+.section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 32px; }
+
+/* ==========================================================
+   4. BUTTONS
+   ========================================================== */
+.btn {
+  display: inline-block;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: 2px solid var(--red);
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.btn-primary { background: var(--red); color: #fff; }
+.btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+.btn-outline { background: transparent; color: var(--text); }
+.btn-outline:hover { background: var(--red); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* ==========================================================
+   5. HEADER & MOBILE NAV
+   ========================================================== */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(13, 13, 15, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+.logo { font-size: 1.35rem; font-weight: 800; }
+.logo span { color: var(--red); }
+
+.nav-toggle {
+  width: 44px; height: 44px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+  background: none; border: 0; cursor: pointer;
+}
+.nav-toggle span { width: 24px; height: 2px; background: var(--text); transition: transform .25s, opacity .25s; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Mobile menu: hidden panel under the header */
+.nav {
+  position: fixed; top: var(--header-h); left: 0; right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 8px 20px 20px;
+  visibility: hidden; opacity: 0; transform: translateY(-8px);
+  transition: opacity .25s, transform .25s, visibility .25s;
+}
+.nav.open { visibility: visible; opacity: 1; transform: none; }
+.nav a { display: block; padding: 14px 0; font-weight: 600; border-bottom: 1px solid var(--line); }
+.nav a:hover { color: var(--red); }
+.nav .nav-cta { margin-top: 14px; border: 0; border-radius: 999px; background: var(--red); text-align: center; }
+.nav .nav-cta:hover { color: #fff; background: var(--red-dark); }
+
+/* ==========================================================
+   6. HERO
+   ========================================================== */
+.hero { padding: calc(var(--header-h) + 56px) 0 64px; border-bottom: 1px solid var(--line); }
+.hero-kicker { color: var(--red); font-weight: 700; margin-bottom: 14px; }
+.hero-text { color: var(--muted); max-width: 58ch; margin-top: 20px; font-size: 1.05rem; }
+.hero-facts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.hero-facts li { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .9rem; }
+
+/* Inner-page title block + active nav link */
+.page-hero { padding: calc(var(--header-h) + 40px) 0 8px; }
+.page-hero .section-intro { margin: 16px 0 0; }
+.page-hero + .section { padding-top: 32px; }
+.nav a[aria-current="page"]:not(.nav-cta) { color: var(--red); }
+
+/* ==========================================================
+   7. ABOUT
+   ========================================================== */
+.about-grid { display: grid; gap: 36px; }
+.about-grid p { color: var(--muted); }
+.about-list { display: grid; gap: 16px; }
+.about-list li { padding-left: 16px; border-left: 3px solid var(--red); color: var(--muted); }
+.about-list strong { display: block; color: var(--text); }
+
+/* ==========================================================
+   8. SERVICES
+   ========================================================== */
+.services-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+.card { background: var(--bg); border: 1px solid var(--line); border-top: 3px solid var(--red); border-radius: var(--radius); padding: 24px; }
+.card p { color: var(--muted); }
+
+/* ==========================================================
+   9. PORTFOLIO
+   ========================================================== */
+.portfolio-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+.project-img { aspect-ratio: 16 / 10; background: linear-gradient(135deg, #2a0a0e, #4a0f17); display: flex; align-items: center; justify-content: center; color: var(--muted); font-weight: 700; }
+.project-img img { width: 100%; height: 100%; object-fit: cover; }
+.project-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.project-type { color: var(--red); font-size: .85rem; font-weight: 700; margin-bottom: 4px; }
+.project-body p { color: var(--muted); font-size: .95rem; margin-bottom: 16px; }
+.project-link { margin-top: auto; font-weight: 700; }
+.project-link:hover { color: var(--red); }
+
+/* ==========================================================
+   10. CONTACT
+   ========================================================== */
+.contact-grid { display: grid; gap: 36px; }
+.contact-grid > div > p { color: var(--muted); }
+.contact-list { margin-top: 24px; display: grid; gap: 18px; }
+.contact-list li { display: flex; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+.contact-list span { color: var(--muted); font-size: .85rem; }
+.contact-list a:hover { color: var(--red); }
+
+.contact-form { display: flex; flex-direction: column; gap: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.contact-form label { font-weight: 600; font-size: .95rem; }
+.contact-form input, .contact-form textarea {
+  width: 100%; padding: 12px 14px; margin-bottom: 8px;
+  font: inherit; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+}
+.contact-form textarea { resize: vertical; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--red); }
+.form-note { color: var(--muted); font-size: .85rem; }
+
+/* ==========================================================
+   11. FOOTER
+   ========================================================== */
+.footer { padding: 24px 0 88px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+.footer-inner { display: flex; flex-direction: column; gap: 6px; }
+.footer a:hover { color: var(--red); }
+
+/* ==========================================================
+   WHATSAPP (floating button, card links, contact button)
+   ========================================================== */
+:root { --wa: #25d366; --wa-dark: #1ebe5a; }
+.wa-float {
+  position: fixed; z-index: 90;
+  right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--wa); box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+  transition: background .2s, transform .2s;
+}
+.wa-float:hover { background: var(--wa-dark); transform: scale(1.06); }
+.wa-link { display: inline-block; margin-top: 14px; font-weight: 700; color: var(--wa); }
+.wa-link:hover { text-decoration: underline; }
+.btn-wa { margin-top: 6px; background: var(--wa); border-color: var(--wa); color: #06220f; }
+.btn-wa:hover { background: var(--wa-dark); border-color: var(--wa-dark); }
+
+/* ==========================================================
+   PROCESS, TESTIMONIALS, BLOG
+   ========================================================== */
+.steps { display: grid; gap: 16px; counter-reset: step; }
+.steps li { counter-increment: step; position: relative; padding: 22px 22px 22px 76px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.steps li::before { content: counter(step); position: absolute; left: 22px; top: 22px; width: 38px; height: 38px; border-radius: 50%; background: var(--red); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.steps p { color: var(--muted); }
+
+.quote { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.quote blockquote { margin: 0; }
+.quote p { color: var(--text); }
+.quote figcaption { display: flex; flex-direction: column; font-size: .9rem; color: var(--muted); }
+.quote figcaption strong { color: var(--text); }
+
+.post-date { display: block; margin-bottom: 8px; color: var(--red); font-size: .85rem; font-weight: 700; }
+.card .project-link { display: inline-block; margin-top: 10px; }
+.article { max-width: 720px; }
+.article p { color: var(--muted); }
+.page-hero .post-date { margin: 14px 0 0; }
+
+/* ==========================================================
+   12. RESPONSIVE BREAKPOINTS
+   ========================================================== */
+@media (min-width: 640px) {
+  .container { padding: 0 32px; }
+  .services-grid, .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { flex-direction: row; justify-content: space-between; }
+}
+
+@media (min-width: 860px) {
+  :root { --header-h: 72px; }
+  .section { padding: 96px 0; }
+  .hero { padding-top: calc(var(--header-h) + 96px); padding-bottom: 96px; }
+
+  /* Desktop nav: inline links, no hamburger */
+  .nav-toggle { display: none; }
+  .nav { position: static; visibility: visible; opacity: 1; transform: none; background: none; border: 0; padding: 0; }
+  .nav ul { display: flex; align-items: center; gap: 18px; }
+  .nav a { font-size: .92rem; }
+  .nav a { padding: 0; border: 0; }
+  .nav .nav-cta { margin: 0; padding: 9px 22px; }
+
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .about-grid, .contact-grid { grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start; }
+}
+
+@media (min-width: 1100px) {
+  .nav ul { gap: 28px; }
+  .nav a { font-size: 1rem; }
+}
+
+@media (min-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(4, 1fr); }
+  .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
